@@ -5,6 +5,7 @@ gem 'mysql2'
 gem 'unicorn'
 gem 'ruby-debug'
 gem 'money'
+gem 'jquery-rails'
 
 group :test, :development do
   gem "autotest"
