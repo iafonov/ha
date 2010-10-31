@@ -1,2 +1,18 @@
+<div id="accounts-manager">
+  <div id="accounts"> 
+    <ul id="accounts-list"></ul> 
+  </div>
+  <div id="create-account"> 
+    <input id="new-account-name" placeholder="New account name" type="text" />
+  </div>
+
+  <script type="text/template" id="item-template"> 
+    <div class="account-name"></div>
+    <span class="account-destroy">X</span>
+    <div class="edit">
+      <input class="account-name-input" type="text" value="" />
+    </div>
+  </script> 
+</div>
+
 <%= javascript_include_tag "accounts" %>
-<h1>Accounts#index</h1>
