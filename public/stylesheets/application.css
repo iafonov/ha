@@ -1,0 +1,89 @@
+html {
+  background: #eeeeee;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4em;
+  color: black;
+}
+
+body h1 {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 50px 0px 10px;
+  text-align: center;
+}
+
+body .manager {
+  width: 700px;
+  margin: 0 auto 40px auto;
+}
+
+li {
+  border-bottom: 1px solid #CCC;
+  padding: 10px;
+  font-size: 20px;
+  position: relative;
+}
+
+input[type="submit"] {
+  font-size: 20px;
+  font-family: inherit;
+  line-height: 1.4em;
+}
+
+input[type="text"] {
+  font-size: 20px;
+  font-family: inherit;
+  line-height: 1.4em;
+  border: 0;
+  outline: none;
+  padding: 6px;
+  border: 1px solid #999999;
+}
+
+select {
+  font-size: 20px;
+  font-family: inherit;
+  line-height: 1.4em;
+  border: 0;
+  outline: none;
+  padding: 6px;
+  border: 1px solid #999999;
+}
+
+label {
+  font-size: 20px;
+  font-family: inherit;
+  line-height: 1.4em;
+}
+
+li div.edit {
+  display: none;
+}
+
+li.editing div.edit {
+  display: block;
+}
+
+li div.item {
+  display: block;
+}
+
+li.editing div.item {
+  display: none;
+}
+
+.destroy {
+  float: right;
+  color: gray;
+}
+
+.destroy:hover {
+  color: red;
+  cursor: hand;
+  cursor: pointer;
+}
