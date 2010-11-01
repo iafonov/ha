@@ -10,7 +10,7 @@ window.Accounts = new AccountsList;
 
 window.AccountView = Backbone.View.extend({
     tagName:  "li",
-    template: _.template($('#item-template').html()),
+    template: $('#item-template').html(),
 
     events: {
         "dblclick div.account-name"          : "edit",
@@ -25,15 +25,12 @@ window.AccountView = Backbone.View.extend({
     },
 
     render: function() {
-        $(this.el).html(this.template(this.model.toJSON()));
+        $(this.el).html(Mustache.to_html(this.template, this.model.toJSON()));
         this.setContent();
         return this;
     },
 
     setContent: function() {
-        var name = this.model.get('name');
-        this.$('.account-name').text(name);
-
         this.input = this.$('.account-name-input');
         this.input.bind('blur', this.close);
         this.input.val(name);
