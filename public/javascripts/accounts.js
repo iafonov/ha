@@ -36,7 +36,7 @@ window.AccountView = Backbone.View.extend({
 
         this.input = this.$('.account-name-input');
         this.input.bind('blur', this.close);
-        this.input.val(content);
+        this.input.val(name);
     },
 
     edit: function() {
