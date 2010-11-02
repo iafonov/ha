@@ -11,6 +11,6 @@ class AccountsController < ApplicationController
   end
 
   def create
-    render :json => Account.create(ActiveSupport::JSON.decode(params["model"]))
+    render :json => Account.create(ActiveSupport::JSON.decode(params["model"])).to_json(:methods => [:valid?, :errors])
   end
 end
