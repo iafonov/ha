@@ -1,33 +1,3 @@
-Backbone.sync = function(method, model, success, error) {
-    var methodMap = {
-        'create': 'POST',
-        'update': 'PUT',
-        'delete': 'DELETE',
-        'read'  : 'GET'
-    };
-
-    var sendModel = method === 'create' || method === 'update';
-    var data = sendModel ? {model : JSON.stringify(model)} : {};
-    var type = methodMap[method];
-
-    $.ajax({
-        url       : _.isFunction(model.url) ? model.url() : model.url,
-        type      : type,
-        data      : data,
-        dataType  : 'json',
-        success   : function(response) {
-            if (!response["valid?"]) {
-                error(response)
-            } else {
-                success(response)
-            }
-        },
-        error     : function(response) {
-            error(response)
-        }
-    });
-};
-
 window.Account = Backbone.Model.extend({
     clear: function() {
       this.destroy();
