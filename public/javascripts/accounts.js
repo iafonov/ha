@@ -19,6 +19,8 @@ window.AccountView = Backbone.View.extend({
     events: {
         "dblclick span.account-name"          : "edit",
         "click span.destroy"                  : "clear",
+        "click span.save"                     : "saveAndClose",
+        "click span.cancel"                   : "close",
         "keypress .account-name-input"        : "updateOnEnter"
     },
 
@@ -35,9 +37,8 @@ window.AccountView = Backbone.View.extend({
     },
 
     setContent: function() {
-        this.input = this.$('.account-name-input');
-        this.input.bind('blur', this.close);
-        this.input.val(name);
+        this.$('.account-name-input').val(this.model.get("name"));
+        this.$('.account-currency-input').val(this.model.get("currency"));
     },
 
     edit: function() {
@@ -46,12 +47,20 @@ window.AccountView = Backbone.View.extend({
     },
 
     close: function() {
-        this.model.save({name: this.input.val()});
         $(this.el).removeClass("editing");
+        this.setContent();
+    },
+
+    saveAndClose: function() {
+        editElement = $(this.el)
+        this.model.save({
+            name:     this.$('.account-name-input').val(),
+            currency: this.$('.account-currency-input').val()
+        }, { success: function() { editElement.removeClass("editing"); }})
     },
 
     updateOnEnter: function(e) {
-        if (e.keyCode == 13) this.close();
+        if (e.keyCode == 13) this.saveAndClose();
     },
 
     clear: function() {
@@ -95,8 +104,8 @@ window.AppView = Backbone.View.extend({
     },
 
     createOnSubmit: function(e) {
-      Accounts.create(this.newAttributes());
-      this.$("#new-account-name").val('');
+        Accounts.create(this.newAttributes());
+        this.$("#new-account-name").val('');
     },
 
     createOnEnter: function(e) {

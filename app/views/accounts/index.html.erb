@@ -10,7 +10,7 @@
     <%= text_field_tag 'new-account-name', nil, :class => 'new', :placeholder => 'New account name' %>
     <br />
     <%= label_tag 'new-account-name', 'Currency:' %>
-    <%= select_tag 'new-account-currency', options_for_select(Account::VALID_CURRENCIES.collect{ |c| [c, c] }) %>
+    <%= select_tag 'new-account-currency', options_for_select(Account::VALID_CURRENCIES) %>
     <br />
     <%= submit_tag "Add", :id => "create-new-account" %>
   </div>
@@ -22,7 +22,10 @@
       <span class="destroy">X</span>
     </div>
     <div class="edit">
-      <input class="account-name-input" type="text" value="" />
+      <%= text_field_tag 'account-name-input', nil, :class => 'account-name-input' %>
+      <%= select_tag 'account-currency-input', options_for_select(Account::VALID_CURRENCIES), :class => 'account-currency-input' %>
+      <span class="action-link save">Save</span>
+      <span class="action-link cancel">Cancel</span>
     </div>
   </script> 
 </div>

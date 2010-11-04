@@ -6,4 +6,7 @@ class Account < ActiveRecord::Base
   validates_length_of :name, :minimum => 3
   validates_uniqueness_of :name
   validates_inclusion_of :currency, :in => VALID_CURRENCIES
+
+  attr_accessible :name
+  attr_accessible :currency
 end

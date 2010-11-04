@@ -3,13 +3,14 @@ html {
 }
 
 body {
-  font-family: helvetica, arial, sans-serif;
+  font-family: Aller, helvetica, arial, sans-serif;
   font-size: 16px;
   line-height: 1.4em;
   color: black;
 }
 
 body h1 {
+  font-family: Aller, helvetica, arial, sans-serif;
   font-size: 36px;
   font-weight: bold;
   line-height: 1;
@@ -20,6 +21,17 @@ body h1 {
 body .manager {
   width: 700px;
   margin: 0 auto 40px auto;
+}
+
+#spinner {
+  display: none;
+  position:absolute;
+  left: 0;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  background-image:url('../images/spinner.gif');
+  background-repeat: no-repeat;
 }
 
 li {
@@ -80,10 +92,17 @@ li.editing div.item {
 .destroy {
   float: right;
   color: gray;
+  cursor: hand;
+  cursor: pointer;
 }
 
 .destroy:hover {
   color: red;
+}
+
+span.action-link {
+  font-size: 14px;
+  text-decoration: underline;
   cursor: hand;
   cursor: pointer;
 }
