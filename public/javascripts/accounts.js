@@ -70,7 +70,7 @@ AccountView = Backbone.View.extend({
     }
 });
 
-AccountsView = Backbone.View.extend({
+AccountsView = new (Backbone.View.extend({
     el: $("#accounts-manager"),
 
     events: {
@@ -116,6 +116,4 @@ AccountsView = Backbone.View.extend({
         if (e.keyCode != 13) return;
         this.create()
     }
-});
-
-new AccountsView;
+}));
