@@ -1,18 +1,20 @@
-window.Account = Backbone.Model.extend({
+Account = Backbone.Model.extend({
     clear: function() {
-      this.destroy();
-      $(this.view.el).remove();
+        self = this;
+        this.destroy({success: function() {
+            $(self.view.el).remove();
+        }});
     }
 })
 
-window.AccountsList = Backbone.Collection.extend({
+AccountsList = Backbone.Collection.extend({
     model: Account,
     url: "/accounts"
 })
 
-window.Accounts = new AccountsList;
+Accounts = new AccountsList;
 
-window.AccountView = Backbone.View.extend({
+AccountView = Backbone.View.extend({
     tagName:  "li",
     template: $('#item-template').html(),
 
@@ -68,12 +70,12 @@ window.AccountView = Backbone.View.extend({
     }
 });
 
-window.AppView = Backbone.View.extend({
+AccountsView = Backbone.View.extend({
     el: $("#accounts-manager"),
 
     events: {
         "keypress #new-account"     : "createOnEnter",
-        "click #create-new-account" : "createOnSubmit",
+        "click #create-new-account" : "create",
         "click .todo-clear a"       : "clearCompleted"
     },
 
@@ -103,16 +105,17 @@ window.AppView = Backbone.View.extend({
         };
     },
 
-    createOnSubmit: function(e) {
-        Accounts.create(this.newAttributes());
-        this.$("#new-account-name").val('');
+    create: function(e) {
+        accountNameInput = this.$("#new-account-name")
+        Accounts.create(this.newAttributes(), { success: function() {
+            accountNameInput.val('');
+        }});
     },
 
     createOnEnter: function(e) {
         if (e.keyCode != 13) return;
-        Accounts.create(this.newAttributes());
-        this.$("#new-account-name").val('');
+        this.create()
     }
 });
 
-window.App = new AppView;
+new AccountsView;

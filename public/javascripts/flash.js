@@ -1,5 +1,7 @@
 (function($) {
     $.toggleFlash = function(message, options) {
+        if (_.isEmpty(message)) return
+
         if ( $('#flash').size() == 0 ) {
             $("body").prepend('<div id="flash"></div>');
         }

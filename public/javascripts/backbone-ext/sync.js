@@ -4,9 +4,11 @@ Backbone.sync = function(method, model, success, error) {
     }
 
     function extractModelErrors(errors) {
-        return _.map(_.keys(errors), function(key) {
-            return (key + " " + errors[key]);
-        })
+        if (!_.isUndefined(errors)) {
+            return _.map(_.keys(errors), function(key) {
+                return key == "base" ? errors[key] : (key + " " + errors[key]);
+            })
+        }
     }
 
     function startSpinner() {
@@ -36,12 +38,12 @@ Backbone.sync = function(method, model, success, error) {
         dataType  : 'json',
         success   : function(response) {
             endSpinner();
-            if (response.hasOwnProperty("valid?") && !response["valid?"]) {
+            if (_.isEmpty(response["errors"])) {
+                runCallbackIfDefined(success, response)
+            } else {
                 $.toggleFlash(extractModelErrors(response.errors))
 
                 runCallbackIfDefined(error, response)
-            } else {
-                runCallbackIfDefined(success, response)
             }
         },
         error     : function(response) {

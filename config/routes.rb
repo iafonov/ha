@@ -1,4 +1,5 @@
 Ha::Application.routes.draw do
   resources :accounts
-  root :to => "accounts#index"
+
+  root :to => "application#index"
 end
