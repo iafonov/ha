@@ -30,8 +30,9 @@ module Ha
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # JavaScript files you want as :defaults (application.js is always included).
-    # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
+    config.action_view.javascript_expansions[:js_app] = Dir[Rails.root.join('public', 'javascripts', 'app', '**','*.{js}')].collect do |path|
+      Pathname.new(path).relative_path_from(Rails.root.join('public', 'javascripts')).to_s
+    end
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
