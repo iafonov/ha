@@ -17,6 +17,10 @@ AccountsView = new (Backbone.View.extend({
         Accounts.fetch();
     },
 
+    hide: function() {
+        this.el.hide()
+    },
+
     addOne: function(account) {
         var view = new AccountView({model: account});
         this.$("#accounts-list").append(view.render().el);
