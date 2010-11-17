@@ -2,7 +2,7 @@ package_assets:         on          # (on, off, always)
 embed_assets:           on          # (on, off, datauri)
 compress_assets:        on          # (on, off)
 gzip_assets:            on          # (on, off)
-template_function:      _.template  # (defaults to the built-in micro-templating)
+template_function:      Mustache.template  # (defaults to the built-in micro-templating)
 package_path:           packages    # (defaults to assets)
 javascript_compressor:  closure     # (yui, closure)
 compressor_options:
@@ -20,9 +20,8 @@ javascripts:
     - public/javascripts/backbone.js
     - public/javascripts/backbone-ext/*.js
 
+    - app/jst/**/*.jst
     - public/javascripts/app/app.js
-
-    - app/views/jst/workspace/*.jst
 stylesheets:
   common:
     - public/stylesheets/reset.css

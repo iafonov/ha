@@ -14,18 +14,4 @@
     <br />
     <%= submit_tag "Add", :id => "create-new-account" %>
   </div>
-
-  <script type="text/template" id="item-template"> 
-    <div class="item">
-      <span class="account-name">{{name}}</span>
-      <span class="account-currency">{{currency}}</span>
-      <span class="destroy">X</span>
-    </div>
-    <div class="edit">
-      <%= text_field_tag 'account-name-input', nil, :class => 'account-name-input' %>
-      <%= select_tag 'account-currency-input', options_for_select(Account::VALID_CURRENCIES), :class => 'account-currency-input' %>
-      <span class="action-link save">Save</span>
-      <span class="action-link cancel">Cancel</span>
-    </div>
-  </script>
 </div>

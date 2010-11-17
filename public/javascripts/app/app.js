@@ -1,3 +1,9 @@
+Mustache.template = function(templateString) {
+    return function() { 
+        return Mustache.to_html(templateString, arguments[0], arguments[1]); 
+  };
+};
+
 $(document).ready(function() {
     Account = Backbone.Model.extend({
         clear: function() {
@@ -17,7 +23,7 @@ $(document).ready(function() {
 
     AccountView = Backbone.View.extend({
         tagName:  "li",
-        template: $('#item-template').html(),
+        template: "account",
 
         events: {
             "dblclick span.account-name"          : "edit",
@@ -34,7 +40,7 @@ $(document).ready(function() {
         },
 
         render: function() {
-            $(this.el).html(Mustache.to_html(this.template, this.model.toJSON()));
+            $(this.el).html(JST[this.template](this.model.toJSON()))
             this.setContent();
             return this;
         },
