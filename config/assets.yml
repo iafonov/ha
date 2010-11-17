@@ -1,0 +1,32 @@
+package_assets:         on          # (on, off, always)
+embed_assets:           on          # (on, off, datauri)
+compress_assets:        on          # (on, off)
+gzip_assets:            on          # (on, off)
+template_function:      _.template  # (defaults to the built-in micro-templating)
+package_path:           packages    # (defaults to assets)
+javascript_compressor:  closure     # (yui, closure)
+compressor_options:
+  compilation_level: ADVANCED_OPTIMIZATIONS
+
+javascripts:
+  workspace:
+    - public/javascripts/application.js
+    - public/javascripts/json2.js
+    - public/javascripts/jquery.js
+    - public/javascripts/rails.js
+    - public/javascripts/underscore.js
+    - public/javascripts/mustache.js
+    - public/javascripts/flash.js
+    - public/javascripts/backbone.js
+    - public/javascripts/backbone-ext/*.js
+
+    - public/javascripts/app/app.js
+
+    - app/views/jst/workspace/*.jst
+stylesheets:
+  common:
+    - public/stylesheets/reset.css
+    - public/stylesheets/application.css
+    - public/stylesheets/flash.css
+  accounts:
+    - public/stylesheets/accounts.css

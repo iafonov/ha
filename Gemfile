@@ -6,6 +6,7 @@ gem 'unicorn'
 gem 'ruby-debug'
 gem 'money'
 gem 'jquery-rails'
+gem 'jammit'
 
 group :test, :development do
   gem "autotest"
