@@ -1,6 +1,6 @@
 AccountView = Backbone.View.extend({
     tagName:  "li",
-    template: "account",
+    template: "accounts/account_item",
 
     events: {
         "dblclick span.account-name"          : "edit",

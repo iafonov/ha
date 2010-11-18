@@ -1,5 +1,7 @@
 AccountsView = Backbone.View.extend({
-    el: "#accounts-manager",
+    el: "#active-window",
+    template: "accounts/accounts",
+
     events: {
         "keypress #new-account"     : "createOnEnter",
         "click #create-new-account" : "create"
@@ -13,8 +15,6 @@ AccountsView = Backbone.View.extend({
         this.accounts.bind('add',     this.addOne);
         this.accounts.bind('refresh', this.addAll);
         this.accounts.bind('all',     this.render);
-
-        this.accounts.fetch();
     },
 
     addOne: function(account) {
@@ -43,5 +43,10 @@ AccountsView = Backbone.View.extend({
     createOnEnter: function(e) {
         if (e.keyCode != 13) return;
         this.create();
+    },
+
+    activate: function() {
+        $(this.el).html(JST[this.template]);
+        this.accounts.fetch();
     }
 });

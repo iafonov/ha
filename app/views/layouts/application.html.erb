@@ -8,6 +8,19 @@
 </head>
 <body>
   <div id="spinner"></div>
-  <%= yield %>
+  <ul id="menu">
+    <li>
+      <a href="#home">Home</a>
+    </li>
+    <li>
+      <a href="#accounts">Accounts</a>
+    </li>
+    <li>
+      <a href="#operations">Operations</a>
+    </li>
+  </ul>
+  <div id="active-window">
+    <%= yield %>
+  </div>
 </body>
 </html>
