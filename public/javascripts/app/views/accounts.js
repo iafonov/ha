@@ -1,6 +1,4 @@
-AccountsView = new (Backbone.View.extend({
-    el: $("#accounts-manager"),
-
+AccountsView = Backbone.View.extend({
     events: {
         "keypress #new-account"     : "createOnEnter",
         "click #create-new-account" : "create",
@@ -10,15 +8,14 @@ AccountsView = new (Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'addOne', 'addAll', 'render');
 
-        Accounts.bind('add',     this.addOne);
-        Accounts.bind('refresh', this.addAll);
-        Accounts.bind('all',     this.render);
+        this.accounts = new AccountsList();
+        this.el = $("#accounts-manager")
+        
+        this.accounts.bind('add',     this.addOne);
+        this.accounts.bind('refresh', this.addAll);
+        this.accounts.bind('all',     this.render);
 
-        Accounts.fetch();
-    },
-
-    hide: function() {
-        this.el.hide()
+        this.accounts.fetch();
     },
 
     addOne: function(account) {
@@ -27,7 +24,7 @@ AccountsView = new (Backbone.View.extend({
     },
 
     addAll: function() {
-        Accounts.each(this.addOne);
+        this.accounts.each(this.addOne);
     },
 
     newAttributes: function() {
@@ -39,13 +36,13 @@ AccountsView = new (Backbone.View.extend({
 
     create: function(e) {
         accountNameInput = this.$("#new-account-name")
-        Accounts.create(this.newAttributes(), { success: function() {
+        this.accounts.create(this.newAttributes(), { success: function() {
             accountNameInput.val('');
         }});
     },
 
     createOnEnter: function(e) {
         if (e.keyCode != 13) return;
-        this.create()
+        this.create();
     }
-}));
+});

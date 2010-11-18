@@ -1,6 +1,6 @@
 AccountView = Backbone.View.extend({
     tagName:  "li",
-    template: $('#item-template').html(),
+    template: "account",
 
     events: {
         "dblclick span.account-name"          : "edit",
@@ -10,14 +10,9 @@ AccountView = Backbone.View.extend({
         "keypress .account-name-input"        : "updateOnEnter"
     },
 
-    initialize: function() {
-        _.bindAll(this, 'render', 'close');
-        this.model.bind('change', this.render);
-        this.model.view = this;
-    },
 
     render: function() {
-        $(this.el).html(Mustache.to_html(this.template, this.model.toJSON()));
+        $(this.el).html(JST[this.template](this.model.toJSON()))
         this.setContent();
         return this;
     },

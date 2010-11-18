@@ -1,4 +1,7 @@
-Accounts = new Backbone.Collection.extend({
-    model: Account,
-    url: "/accounts"
+AccountsList = Backbone.Collection.extend({
+    url: "/accounts",
+
+    initialize: function() {
+        this.model = Account
+    }
 })

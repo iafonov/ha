@@ -20,8 +20,8 @@ javascripts:
     - public/javascripts/backbone.js
     - public/javascripts/backbone-ext/*.js
 
+    - public/javascripts/app/**/*.js
     - app/jst/**/*.jst
-    - public/javascripts/app/app.js
 stylesheets:
   common:
     - public/stylesheets/reset.css
