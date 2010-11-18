@@ -1,16 +1,15 @@
 AccountsView = Backbone.View.extend({
+    el: "#accounts-manager",
     events: {
         "keypress #new-account"     : "createOnEnter",
-        "click #create-new-account" : "create",
-        "click .todo-clear a"       : "clearCompleted"
+        "click #create-new-account" : "create"
     },
 
     initialize: function() {
         _.bindAll(this, 'addOne', 'addAll', 'render');
 
         this.accounts = new AccountsList();
-        this.el = $("#accounts-manager")
-        
+
         this.accounts.bind('add',     this.addOne);
         this.accounts.bind('refresh', this.addAll);
         this.accounts.bind('all',     this.render);

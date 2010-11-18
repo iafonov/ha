@@ -5,8 +5,11 @@
     <span class="destroy">X</span>
   </div>
   <div class="edit">
-    <%= text_field_tag 'account-name-input', nil, :class => 'account-name-input' %>
-    <%= select_tag 'account-currency-input', options_for_select(Account::VALID_CURRENCIES), :class => 'account-currency-input' %>
+    <input class="account-name-input" id="account-name-input" name="account-name-input" type="text" />
+    <select class="account-currency-input" id="account-currency-input" name="account-currency-input">
+      <option value="USD">USD</option>
+      <option value="UAH">UAH</option>
+    </select>
     <span class="action-link save">Save</span>
     <span class="action-link cancel">Cancel</span>
   </div>

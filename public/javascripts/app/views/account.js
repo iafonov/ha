@@ -10,6 +10,11 @@ AccountView = Backbone.View.extend({
         "keypress .account-name-input"        : "updateOnEnter"
     },
 
+    initialize: function() {
+        _.bindAll(this, 'render', 'close');
+        this.model.bind('change', this.render);
+        this.model.view = this;
+    },
 
     render: function() {
         $(this.el).html(JST[this.template](this.model.toJSON()))
