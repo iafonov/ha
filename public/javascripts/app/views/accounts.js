@@ -10,7 +10,7 @@ AccountsView = Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'addOne', 'addAll', 'render');
 
-        this.accounts = new AccountsList();
+        this.accounts = AccountsList.get();
 
         this.accounts.bind('add',     this.addOne);
         this.accounts.bind('refresh', this.addAll);
