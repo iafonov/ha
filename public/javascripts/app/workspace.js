@@ -9,6 +9,7 @@ var Workspace = Backbone.Controller.extend({
     initialize: function() {
         this.accounts = new AccountsView();
         this.home = new HomeView();
+        this.operations = new OperationsView();
 
         Backbone.history.start();
     },
@@ -22,5 +23,6 @@ var Workspace = Backbone.Controller.extend({
     },
     
     operations: function() {
+        this.operations.activate();
     }
 });
