@@ -1,5 +1,6 @@
 AccountsView = Backbone.View.extend({
-    el: "#active-window",
+    el: "#accounts",
+    rootElement: "#active-window",
     template: "accounts/accounts",
 
     events: {
@@ -15,6 +16,8 @@ AccountsView = Backbone.View.extend({
         this.accounts.bind('add',     this.addOne);
         this.accounts.bind('refresh', this.addAll);
         this.accounts.bind('all',     this.render);
+
+        $(this.rootElement).append(JST[this.template]);
     },
 
     addOne: function(account) {
@@ -45,8 +48,14 @@ AccountsView = Backbone.View.extend({
         this.create();
     },
 
+    deactivate: function() {
+        $(this.el).hide();
+        return this;
+    },
+
+
     activate: function() {
-        $(this.el).html(JST[this.template]);
-        this.accounts.fetch();
+        $(this.el).show();
+        return this;
     }
 });

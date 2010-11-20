@@ -9,6 +9,7 @@ AccountsList = Backbone.Collection.extend({
 AccountsList.get = function() {
     if (_.isEmpty(AccountsList.list)) {
         AccountsList.list = new AccountsList();
+        AccountsList.list.fetch();
     }
 
     return AccountsList.list;

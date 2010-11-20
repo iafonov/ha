@@ -6,6 +6,8 @@ var Workspace = Backbone.Controller.extend({
         "operations": "operations"
     },
 
+    current: null,
+
     initialize: function() {
         this.accounts = new AccountsView();
         this.home = new HomeView();
@@ -15,14 +17,17 @@ var Workspace = Backbone.Controller.extend({
     },
 
     root: function() {
-        this.home.activate();
+        if (this.current != null) this.current.deactivate();
+        this.current = this.home.activate();
     },
 
     accounts: function() {
-        this.accounts.activate();
+        if (this.current != null) this.current.deactivate();
+        this.current = this.accounts.activate();
     },
     
     operations: function() {
-        this.operations.activate();
+        if (this.current != null) this.current.deactivate();
+        this.current = this.operations.activate();
     }
 });
