@@ -53,7 +53,6 @@ AccountsView = Backbone.View.extend({
         return this;
     },
 
-
     activate: function() {
         $(this.el).show();
         return this;

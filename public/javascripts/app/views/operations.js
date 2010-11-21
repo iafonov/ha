@@ -6,6 +6,10 @@ OperationsView = Backbone.View.extend({
     initialize: function() {
         this.accounts = AccountsList.get();
         $(this.rootElement).append(JST[this.template]);
+
+        _.bindAll(this, 'render');
+
+        this.accounts.bind('refresh', this.render);
     },
 
     render: function() {
@@ -20,7 +24,5 @@ OperationsView = Backbone.View.extend({
     activate: function() {
         $(this.el).show();
         return this;
-        console.log(this.accounts.models)
-//        $(this.el).html(JST[this.template](this.accounts.toJSON()));
     }
 })
