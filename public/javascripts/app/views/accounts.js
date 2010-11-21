@@ -1,4 +1,4 @@
-AccountsView = Backbone.View.extend({
+AccountsView = Backbone.ScreenView.extend({
     el: "#accounts",
     rootElement: "#active-window",
     template: "accounts/accounts",
@@ -8,7 +8,7 @@ AccountsView = Backbone.View.extend({
         "click #create-new-account" : "create"
     },
 
-    initialize: function() {
+    init: function() {
         _.bindAll(this, 'addOne', 'addAll', 'render');
 
         this.accounts = AccountsList.get();
@@ -16,8 +16,6 @@ AccountsView = Backbone.View.extend({
         this.accounts.bind('add',     this.addOne);
         this.accounts.bind('refresh', this.addAll);
         this.accounts.bind('all',     this.render);
-
-        $(this.rootElement).append(JST[this.template]);
     },
 
     addOne: function(account) {
@@ -46,15 +44,5 @@ AccountsView = Backbone.View.extend({
     createOnEnter: function(e) {
         if (e.keyCode != 13) return;
         this.create();
-    },
-
-    deactivate: function() {
-        $(this.el).hide();
-        return this;
-    },
-
-    activate: function() {
-        $(this.el).show();
-        return this;
     }
 });

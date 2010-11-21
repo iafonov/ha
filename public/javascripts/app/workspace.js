@@ -10,6 +10,9 @@ var Workspace = Backbone.Controller.extend({
 
     initialize: function() {
         this.accounts = new AccountsView();
+        
+        console.log(this.accounts)
+        
         this.home = new HomeView();
         this.operations = new OperationsView();
 
