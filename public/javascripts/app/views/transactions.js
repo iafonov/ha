@@ -1,7 +1,7 @@
-OperationsView = Backbone.ScreenView.extend({
-    el: "#operations",
+TransactionsView = Backbone.ScreenView.extend({
+    el: "#transactions",
     rootElement: "#active-window",
-    template: "operations/operations",
+    template: "transactions/transactions",
 
     init: function() {
         this.accounts = AccountsList.get();

@@ -3,18 +3,15 @@ var Workspace = Backbone.Controller.extend({
         ""   : "root",
         "home"   : "root",
         "accounts": "accounts",
-        "operations": "operations"
+        "transactions": "transactions"
     },
 
     current: null,
 
     initialize: function() {
         this.accounts = new AccountsView();
-        
-        console.log(this.accounts)
-        
         this.home = new HomeView();
-        this.operations = new OperationsView();
+        this.transactions = new TransactionsView();
 
         Backbone.history.start();
     },
@@ -29,8 +26,8 @@ var Workspace = Backbone.Controller.extend({
         this.current = this.accounts.activate();
     },
     
-    operations: function() {
+    transactions: function() {
         if (this.current != null) this.current.deactivate();
-        this.current = this.operations.activate();
+        this.current = this.transactions.activate();
     }
 });

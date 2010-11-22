@@ -7,6 +7,7 @@ Backbone.ScreenView = Backbone.View.extend({
         $(this.rootElement).append(JST[this.template]);
 
         this.init();
+        this.delegateEvents();
     },
 
     deactivate: function() {
