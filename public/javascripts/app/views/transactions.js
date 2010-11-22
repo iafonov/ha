@@ -6,12 +6,16 @@ TransactionsView = Backbone.ScreenView.extend({
     init: function() {
         this.accounts = AccountsList.get();
 
-        _.bindAll(this, 'render');
+        _.bindAll(this, 'refreshForm');
 
-        this.accounts.bind('refresh', this.render);
+        this.accounts.bind('all',     this.refreshForm);
     },
 
-    render: function() {
-        console.log("render ops.")
+    refreshForm: function() {
+        this.$("#new-transaction-from").html("")
+        this.accounts.map(function(account) {   
+            $('<option/>').attr("id", account.get("id")).text(account.get("name")).appendTo($("#new-transaction-from"));
+            $('<option/>').attr("id", account.get("id")).text(account.get("name")).appendTo($("#new-transaction-to"));
+        })
     }
 })
