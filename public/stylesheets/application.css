@@ -39,38 +39,6 @@ li {
   position: relative;
 }
 
-input[type="submit"] {
-  font-size: 20px;
-  font-family: inherit;
-  line-height: 1.4em;
-}
-
-input[type="text"] {
-  font-size: 20px;
-  font-family: inherit;
-  line-height: 1.4em;
-  border: 0;
-  outline: none;
-  padding: 6px;
-  border: 1px solid #999999;
-}
-
-select {
-  font-size: 20px;
-  font-family: inherit;
-  line-height: 1.4em;
-  border: 0;
-  outline: none;
-  padding: 6px;
-  border: 1px solid #999999;
-}
-
-label {
-  font-size: 20px;
-  font-family: inherit;
-  line-height: 1.4em;
-}
-
 li div.edit {
   display: none;
 }

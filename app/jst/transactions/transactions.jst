@@ -1,3 +1,41 @@
 <div class="window" id="transactions" style="display: none;">
   <h1>Transactions</h1>
+  <ul id="transactions-list"></ul>
+
+  <fieldset id="create-transaction">
+    <legend>Add new transaction</legend>
+    <div>
+      <label for="new-transaction-from">From:</label>
+      <select id="new-transaction-from" name="new-transaction-from">
+      </select>
+    </div>
+
+    <div>
+      <label for="new-transaction-to">To:</label>
+      <select id="new-transaction-to" name="new-transaction-to">
+      </select>
+    </div>
+
+    <div>
+      <label for="new-transaction-amount">Amount:</label>
+      <input class="new" id="new-transaction-amount" name="new-transaction-amount" placeholder="0" type="text" />
+    </div>
+
+    <div>
+      <label for="new-transaction-name">Currency:</label>
+      <select id="new-transaction-currency" name="new-transaction-currency">
+        <option value="USD">USD</option>
+        <option value="UAH">UAH</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="new-transaction-comment">Comment:</label>
+      <input class="new" id="new-transaction-comment" name="new-transaction-comment" placeholder="Comment" type="text" />
+    </div>
+
+    <div class="submit-line">
+      <input id="create-new-transaction" name="commit" type="submit" value="Add" />
+    </div>
+  </fieldset>
 </div>

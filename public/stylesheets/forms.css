@@ -1,0 +1,48 @@
+fieldset {
+  border: none;
+  margin: 1em 0;
+}
+
+fieldset div {
+  display: block;
+  margin-bottom: .8em;
+}
+
+fieldset div.submit-line {
+  text-align: center;
+}
+
+legend {
+  font-size: 24px;
+  padding: 40px 0px 30px;
+  text-align: center;
+}
+
+input[type="submit"] {
+  font-size: 16px;
+  font-family: inherit;
+  clear: both;
+}
+
+input[type="text"] {
+  font-size: 16px;
+  font-family: inherit;
+  padding: 6px;
+  border: 1px solid #999999;
+}
+
+select {
+  font-size: 16px;
+  font-family: inherit;
+  padding: 6px;
+  border: 1px solid #999999;
+}
+
+label {
+  font-size: 16px;
+  font-family: inherit;
+  text-align: right;
+  float: left;
+  padding: 6px;
+  width: 10em;
+}

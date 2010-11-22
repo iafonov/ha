@@ -27,5 +27,4 @@ stylesheets:
     - public/stylesheets/reset.css
     - public/stylesheets/application.css
     - public/stylesheets/flash.css
-  accounts:
-    - public/stylesheets/accounts.css
+    - public/stylesheets/forms.css
