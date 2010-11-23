@@ -6,6 +6,8 @@ class Transaction < ActiveRecord::Base
 
   validate :transaction_sum_must_be_zero
 
+  accepts_nested_attributes_for :operations #, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+
 private
 
   def transaction_sum_must_be_zero

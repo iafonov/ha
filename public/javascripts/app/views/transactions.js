@@ -13,6 +13,7 @@ TransactionsView = Backbone.ScreenView.extend({
 
     refreshForm: function() {
         this.$("#new-transaction-from").html("")
+        this.$("#new-transaction-to").html("")
         this.accounts.map(function(account) {   
             $('<option/>').attr("id", account.get("id")).text(account.get("name")).appendTo($("#new-transaction-from"));
             $('<option/>').attr("id", account.get("id")).text(account.get("name")).appendTo($("#new-transaction-to"));
