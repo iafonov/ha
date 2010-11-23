@@ -1,4 +1,4 @@
-TransactionList = Backbone.Collection.extend({
+TransactionsList = Backbone.Collection.extend({
     url: "/transactions",
 
     initialize: function() {
@@ -6,11 +6,11 @@ TransactionList = Backbone.Collection.extend({
     }
 })
 
-TransactionList.get = function() {
-    if (_.isEmpty(TransactionList.list)) {
-        TransactionList.list = new TransactionList();
-        TransactionList.list.fetch();
+TransactionsList.get = function() {
+    if (_.isEmpty(TransactionsList.list)) {
+        TransactionsList.list = new TransactionsList();
+        TransactionsList.list.fetch();
     }
 
-    return TransactionList.list;
+    return TransactionsList.list;
 }
