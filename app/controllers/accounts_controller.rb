@@ -14,8 +14,12 @@ class AccountsController < ApplicationController
   end
 
   def update
-    account = Account.find(params[:id])
-    account.update_attributes(ActiveSupport::JSON.decode(params[:model]))
-    render :json => account.to_json(:methods => [:errors])
+    begin
+      account = Account.find(params[:id])
+      account.update_attributes(ActiveSupport::JSON.decode(params[:model]))
+      render :json => account.to_json(:methods => [:errors])
+    rescue ActiveRecord::RecordNotFound => e
+      render :json => {:errors => {:base => "Account not found."}}.to_json
+    end
   end
 end
