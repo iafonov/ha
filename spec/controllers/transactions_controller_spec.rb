@@ -13,7 +13,6 @@ describe TransactionsController do
     it "shouldn't create transaction if operations not provided" do
       expect {
         post 'create', {:model => {:comment => "Test"}.to_json}
-        p response.body
       }.to change { Transaction.count }.by(0)
     end
   end

@@ -20,6 +20,11 @@ describe Account do
       Factory.build(:account, :name => "test", :currency => "USD").should_not be_valid
       Factory.build(:account, :name => "test", :currency => "UAH").should be_valid
     end
+
+    it "should have zero balance" do
+      Factory.build(:account, :currency => "USD").balance.should == Money.new(0)
+    end
+
   end
 
   describe Account, "with operations" do
@@ -34,6 +39,11 @@ describe Account do
     end
 
     it "shouldn't allow changing currency" do
+      
+    end
+
+    it "should calculate balance on operations" do
+      @account.balance.should == Money.new(10)
     end
   end
 end
