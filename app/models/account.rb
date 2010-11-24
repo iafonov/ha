@@ -12,7 +12,6 @@ class Account < ActiveRecord::Base
 
   before_destroy :check_that_no_operations_exist
 
-
 private
 
   def check_that_no_operations_exist
