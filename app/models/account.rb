@@ -12,8 +12,8 @@ class Account < ActiveRecord::Base
 
   before_destroy :check_that_no_operations_exist
 
-  def balance
-    operations.reduce(Money.new(0)){ |sum, operation| sum += operation.amount }
+  def balance_in_cents
+    operations.reduce(Money.new(0)){ |sum, operation| sum += operation.amount }.cents
   end
 
 private

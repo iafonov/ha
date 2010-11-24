@@ -22,7 +22,7 @@ describe Account do
     end
 
     it "should have zero balance" do
-      Factory.build(:account, :currency => "USD").balance.should == Money.new(0)
+      Factory.build(:account, :currency => "USD").balance_in_cents.should == 0
     end
 
   end
@@ -43,7 +43,7 @@ describe Account do
     end
 
     it "should calculate balance on operations" do
-      @account.balance.should == Money.new(10)
+      @account.balance_in_cents.should == 10
     end
   end
 end

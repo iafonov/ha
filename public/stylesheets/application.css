@@ -72,3 +72,15 @@ span.action-link {
   cursor: hand;
   cursor: pointer;
 }
+
+span.positive-amount {
+  color: green;
+}
+
+span.negative-amount {
+  color: red;
+}
+
+span.zero-amount {
+  color: gray;
+}

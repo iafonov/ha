@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   def index
-    render :json => Account.all
+    render :json => Account.all.to_json(:methods => [:balance_in_cents])
   end
 
   def destroy

@@ -9,13 +9,20 @@ AccountsView = Backbone.ScreenView.extend({
     },
 
     init: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'render');
+        _.bindAll(this, 'addOne', 'addAll', 'render', 'reload');
 
         this.accounts = AccountsList.get();
-
         this.accounts.bind('add',     this.addOne);
         this.accounts.bind('refresh', this.addAll);
         this.accounts.bind('all',     this.render);
+
+        this.transactions = TransactionsList.get();
+        this.transactions.bind('add', this.reload)
+    },
+
+    reload: function() {
+        this.accounts.invoke('removeElement')
+        this.accounts.fetch();
     },
 
     addOne: function(account) {

@@ -107,9 +107,14 @@
 				}
 			}
 			
+			if (settings.cents) {
+                num = num / 100.00;
+            }
+			
 			// evalutate number input
 			var numParts = String(num).split('.');
 			var isPositive = (num == Math.abs(num));
+			var isZero = (num == 0)
 			var hasDecimals = (numParts.length > 1);
 			var decimals = (hasDecimals ? numParts[1].toString() : '0');
 			var originalDecimals = decimals;
@@ -161,9 +166,16 @@
 			}
 
 			// colorize
-			if (settings.colorize) {
-				$destination.css('color', isPositive ? 'black' : 'red');
+			if (settings.colorize) {			    
+				$destination.css('color', isPositive ? 'green' : 'red');
 			}
+
+            if (!isZero) {
+			    $destination.addClass(isPositive ? 'positive-amount' : 'negative-amount');
+            } else {
+                $destination.addClass('zero-amount');
+            }
+            
 		});
 	};
 

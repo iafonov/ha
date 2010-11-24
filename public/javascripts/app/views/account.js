@@ -25,6 +25,7 @@ AccountView = Backbone.View.extend({
     setContent: function() {
         this.$('.account-name-input').val(this.model.get("name"));
         this.$('.account-currency-input').val(this.model.get("currency"));
+        this.$('.account-balance').formatCurrency({region: this.model.get("currency"), cents: true})
     },
 
     edit: function() {
