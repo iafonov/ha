@@ -20,12 +20,8 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     refreshForm: function() {
-        this.$("#new-transaction-from").html("")
-        this.$("#new-transaction-to").html("")
-        this.accounts.map(function(account) {   
-            $('<option/>').attr("value", account.get("id")).text(account.get("name")).appendTo($("#new-transaction-from"));
-            $('<option/>').attr("value", account.get("id")).text(account.get("name")).appendTo($("#new-transaction-to"));
-        })
+        this._fillAccountsSelect(this.$("#new-transaction-from"));
+        this._fillAccountsSelect(this.$("#new-transaction-to"));
     },
 
     formatCurrency: function() {
@@ -50,4 +46,12 @@ TransactionsView = Backbone.ScreenView.extend({
             }]
         };
     },
+
+    _fillAccountsSelect: function(select) {
+        select.html("")
+        this.accounts.map(function(account) {
+            caption = Mustache.to_html("{{name}} ({{currency}})", account.attributes);
+            $('<option/>').attr("value", account.get("id")).text(caption).appendTo(select);
+        })
+    }
 })
