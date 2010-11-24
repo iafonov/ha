@@ -13,6 +13,7 @@ javascripts:
     - public/javascripts/application.js
     - public/javascripts/json2.js
     - public/javascripts/jquery.js
+    - public/javascripts/jquery.currency.js
     - public/javascripts/rails.js
     - public/javascripts/underscore.js
     - public/javascripts/mustache.js

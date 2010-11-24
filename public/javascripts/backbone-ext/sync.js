@@ -39,7 +39,7 @@ Backbone.sync = function(method, model, success, error) {
         dataType  : 'json',
         success   : function(response) {
             endSpinner();
-            if (_.isEmpty(response["errors"])) {
+            if (_.isEmpty(response["errors"])) { //todo add 500 & 422 handling
                 runCallbackIfDefined(success, response)
             } else {
                 $.toggleFlash(extractModelErrors(response.errors))
