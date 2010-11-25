@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
 
   def index
-    render :json => Transaction.all
+    render :json => Transaction.all.to_json(:include => :operations)
   end
 
   def create

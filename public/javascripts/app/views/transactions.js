@@ -8,15 +8,28 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     init: function() {
-        _.bindAll(this, 'refreshForm', 'formatCurrency');
+        _.bindAll(this, 'addOne', 'addAll', 'refreshForm', 'formatCurrency');
 
         this.accounts = AccountsList.get();
         this.accounts.bind('all',     this.refreshForm);
 
         this.transactions = TransactionsList.get();
+        this.transactions.bind('add',     this.addOne);
+        this.transactions.bind('refresh', this.addAll);
+        this.transactions.bind('all',     this.render);
 
         this.$('#new-transaction-amount').blur(this.formatCurrency);
         this.$("#new-transaction-currency").change(this.formatCurrency);
+    },
+
+    addOne: function(transaction) {
+        console.log(transaction)
+        var view = new TransactionView({model: transaction});
+        this.$("#transactions-list").append(view.render().el);
+    },
+
+    addAll: function() {
+        this.transactions.each(this.addOne);
     },
 
     refreshForm: function() {

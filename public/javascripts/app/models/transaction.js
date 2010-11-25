@@ -1,8 +1,13 @@
 Transaction = Backbone.Model.extend({
+    initialize: function() {
+        _.bindAll(this, 'removeElement');
+    },
+
+    removeElement: function() {
+        $(this.view.el).remove();
+    },
+
     clear: function() {
-        self = this;
-        this.destroy({success: function() {
-            $(self.view.el).remove();
-        }});
+        this.destroy({success: this.removeElement});
     }
 })

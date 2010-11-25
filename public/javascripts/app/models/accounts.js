@@ -3,6 +3,11 @@ AccountsList = Backbone.Collection.extend({
 
     initialize: function() {
         this.model = Account;
+    },
+
+    reload: function() {
+        this.invoke('removeElement');
+        this.fetch();
     }
 })
 

@@ -73,6 +73,11 @@ span.action-link {
   cursor: pointer;
 }
 
+span.account-balance {
+  float: right;
+  padding-right: 20px;
+}
+
 span.positive-amount {
   color: green;
 }

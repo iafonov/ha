@@ -21,8 +21,7 @@ AccountsView = Backbone.ScreenView.extend({
     },
 
     reload: function() {
-        this.accounts.invoke('removeElement')
-        this.accounts.fetch();
+        this.accounts.reload();
     },
 
     addOne: function(account) {

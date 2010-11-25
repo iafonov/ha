@@ -1,6 +1,6 @@
 Account = Backbone.Model.extend({
     initialize: function() {
-        this.set({balance: this.get("balance_in_cents")})
+        _.bindAll(this, 'removeElement');
     },
 
     removeElement: function() {
@@ -8,9 +8,6 @@ Account = Backbone.Model.extend({
     },
 
     clear: function() {
-        self = this;
-        this.destroy({success: function() {
-            $(self.view.el).remove();
-        }});
+        this.destroy({success: this.removeElement});
     }
 })
