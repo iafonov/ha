@@ -5,7 +5,9 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    render :json => Transaction.create!(ActiveSupport::JSON.decode(params["model"])).to_json(:methods => [:errors])
+    transaction_attrs = ActiveSupport::JSON.decode(params["model"])
+    transaction_attrs["operations_attributes"] = transaction_attrs.delete("operations")
+    render :json => Transaction.create!(transaction_attrs).to_json(:methods => [:errors])
   end
 
 end

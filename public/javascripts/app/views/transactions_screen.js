@@ -23,7 +23,6 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     addOne: function(transaction) {
-        console.log(transaction)
         var view = new TransactionView({model: transaction});
         this.$("#transactions-list").append(view.render().el);
     },
@@ -48,7 +47,7 @@ TransactionsView = Backbone.ScreenView.extend({
     newAttributes: function() {
         return {
             comment:  this.$("#new-transaction-comment").val(),
-            operations_attributes: [{
+            operations: [{
                 account_id: this.$("#new-transaction-from").val(),
                 currency:   this.$("#new-transaction-currency").val(),
                 cents:      (-this.$("#new-transaction-amount").asCents())

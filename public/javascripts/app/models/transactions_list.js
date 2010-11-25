@@ -2,7 +2,7 @@ TransactionsList = Backbone.Collection.extend({
     url: "/transactions",
 
     initialize: function() {
-        this.model = Account;
+        this.model = Transaction;
     }
 })
 

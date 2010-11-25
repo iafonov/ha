@@ -4,6 +4,10 @@ Mustache.template = function(templateString) {
   };
 };
 
+_.templateSettings = {
+    interpolate : /\{\{(.+?)\}\}/g
+};
+
 $(document).ready(function() {
     workspace = new Workspace();
 });
