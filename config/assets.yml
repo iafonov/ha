@@ -16,7 +16,6 @@ javascripts:
     - public/javascripts/jquery.currency.js
     - public/javascripts/rails.js
     - public/javascripts/underscore.js
-    - public/javascripts/mustache.js
     - public/javascripts/flash.js
     - public/javascripts/backbone.js
     - public/javascripts/backbone-ext/*.js
