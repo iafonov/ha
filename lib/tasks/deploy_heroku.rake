@@ -5,12 +5,12 @@ namespace "heroku" do
 
     FileUtils.rm_rf("public/packages")
     Jammit.package!
+    # 
+    # g = Git.open(".", :log => Logger.new(STDOUT))
+    # g.add("public/packages/*")
+    # g.commit("Static assets for heroku.")
+    # g.push(g.remote('heroku'))
 
-    g = Git.open(".", :log => Logger.new(STDOUT))
-    g.add("public/packages/*")
-    g.commit("Static assets for heroku.")
-    g.push(g.remote('heroku'))
-
-    FileUtils.rm_rf("public/packages")
+    # FileUtils.rm_rf("public/packages")
   end
 end
