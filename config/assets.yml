@@ -1,11 +1,9 @@
-package_assets:         on          # (on, off, always)
-embed_assets:           on          # (on, off, datauri)
+package_assets:         off          # (on, off, always)
+embed_assets:           off          # (on, off, datauri)
 compress_assets:        off          # (on, off)
 gzip_assets:            off          # (on, off)
 template_function:      _.template  # (defaults to the built-in micro-templating)
 package_path:           packages    # (defaults to assets)
-compressor_options:
-  compilation_level: ADVANCED_OPTIMIZATIONS
 
 javascripts:
   workspace:
