@@ -10,7 +10,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    render :json => Account.create(ActiveSupport::JSON.decode(params["model"])).to_json(:methods => [:errors])
+    render :json => Account.create(ActiveSupport::JSON.decode(params["model"])).to_json(:methods => [:errors, :balance_in_cents])
   end
 
   def update
