@@ -62,7 +62,7 @@ TransactionsView = Backbone.ScreenView.extend({
     _fillAccountsSelect: function(select) {
         select.html("")
         this.accounts.map(function(account) {
-            caption = Mustache.to_html("{{name}} ({{currency}})", account.attributes);
+            caption = _.template("{{name}} ({{currency}})", account.attributes);
             $('<option/>').attr("value", account.get("id")).text(caption).appendTo(select);
         })
     }
