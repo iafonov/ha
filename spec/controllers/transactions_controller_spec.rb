@@ -6,7 +6,7 @@ describe TransactionsController do
       expect {
         post 'create', {:model =>
           { :comment => "Test",
-            :operations_attributes => [{:cents => "10", :currency => "USD", :account_id => 1}, {:cents => "-10", :currency => "USD", :account_id => 2}]}.to_json}
+            :operations => [{:cents => "10", :currency => "USD", :account_id => 1}, {:cents => "-10", :currency => "USD", :account_id => 2}]}.to_json}
       }.to change { Transaction.count }.by(1)
     end
 
