@@ -1,6 +1,6 @@
 Account = Backbone.Model.extend({
     initialize: function() {
-        _.bindAll(this, 'removeElement');
+        _(this).bindAll('removeElement');
     },
 
     removeElement: function() {
@@ -10,4 +10,4 @@ Account = Backbone.Model.extend({
     clear: function() {
         this.destroy({success: this.removeElement});
     }
-})
+});

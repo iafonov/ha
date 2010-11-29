@@ -1,10 +1,10 @@
 Transaction = Backbone.Model.extend({
     initialize: function() {
-        _.bindAll(this, 'removeElement');
+        _(this).bindAll('removeElement');
     },
 
     virtualAttributes: function() {
-        return { accountFrom: this.accountFrom(), accountTo: this.accountTo(), transactionSumCents: this.transactionSumCents() }
+        return { accountFrom: this.accountFrom(), accountTo: this.accountTo(), transactionSumCents: this.transactionSumCents() };
     },
 
     removeElement: function() {
@@ -30,4 +30,4 @@ Transaction = Backbone.Model.extend({
     transactionCurrency: function() {
         return this.get("operations")[1].currency;
     }
-})
+});

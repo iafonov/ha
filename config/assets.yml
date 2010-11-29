@@ -14,9 +14,9 @@ javascripts:
     - public/javascripts/json2.js
     - public/javascripts/jquery.js
     - public/javascripts/jquery.currency.js
+    - public/javascripts/jquery.flash.js
     - public/javascripts/rails.js
     - public/javascripts/underscore.js
-    - public/javascripts/flash.js
     - public/javascripts/backbone.js
     - public/javascripts/backbone-ext/*.js
 

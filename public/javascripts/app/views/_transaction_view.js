@@ -3,15 +3,16 @@ TransactionView = Backbone.View.extend({
     template: "transactions/transaction_item",
 
     initialize: function() {
-        _.bindAll(this, 'render');
+        _(this).bindAll('render');
+
         this.model.bind('change', this.render);
         this.model.view = this;
     },
 
     render: function() {
-        attrs = _.extend(this.model.attributes, this.model.virtualAttributes())
+        attrs = _(this.model.attributes).extend(this.model.virtualAttributes());
         $(this.el).html(JST[this.template](attrs));
-        this.$('.transaction-amount').formatCurrency({region: this.model.transactionCurrency(), cents: true})
+        this.$('.transaction-amount').formatCurrency({region: this.model.transactionCurrency(), cents: true});
         return this;
     }
 });

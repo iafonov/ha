@@ -1,14 +1,15 @@
 Backbone.sync = function(method, model, success, error) {
-    console.log("sync url:" + (_.isFunction(model.url) ? model.url() : model.url) + " method " + method);
     function runCallbackIfDefined(callback, parameter) {
-        if (_.isFunction(callback)) callback(parameter);
+        if (_(callback).isFunction()) {
+            callback(parameter);
+        }
     }
 
     function extractModelErrors(errors) {
-        if (!_.isUndefined(errors)) {
-            return _.map(_.keys(errors), function(key) {
+        if (!_(errors).isUndefined()) {
+            return _(errors).keys().map(function(key) {
                 return key == "base" ? errors[key] : (key + " " + errors[key]);
-            })
+            });
         }
     }
 
@@ -25,7 +26,7 @@ Backbone.sync = function(method, model, success, error) {
         'update': 'PUT',
         'delete': 'DELETE',
         'read'  : 'GET'
-    }
+    };
 
     var sendModel = method === 'create' || method === 'update';
     var data = sendModel ? {model : JSON.stringify(model)} : {};
@@ -33,23 +34,23 @@ Backbone.sync = function(method, model, success, error) {
 
     startSpinner();
     $.ajax({
-        url       : _.isFunction(model.url) ? model.url() : model.url,
+        url       : _(model.url).isFunction() ? model.url() : model.url,
         type      : type,
         data      : data,
         dataType  : 'json',
         success   : function(response) {
             endSpinner();
-            if (_.isEmpty(response["errors"])) { //todo add 500 & 422 handling
-                runCallbackIfDefined(success, response)
+            if (_(response["errors"]).isEmpty()) { //todo add 500 & 422 handling
+                runCallbackIfDefined(success, response);
             } else {
-                $.toggleFlash(extractModelErrors(response.errors))
+                $.toggleFlash(extractModelErrors(response.errors));
 
-                runCallbackIfDefined(error, response)
+                runCallbackIfDefined(error, response);
             }
         },
         error     : function(response) {
             endSpinner();
-            runCallbackIfDefined(error, response)
+            runCallbackIfDefined(error, response);
         }
     });
 };

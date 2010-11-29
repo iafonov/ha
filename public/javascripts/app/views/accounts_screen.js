@@ -9,7 +9,7 @@ AccountsView = Backbone.ScreenView.extend({
     },
 
     init: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'render', 'reload');
+        _(this).bindAll('addOne', 'addAll', 'render', 'reload', 'clear');
 
         this.accounts = AccountsList.get();
         this.accounts.bind('add',     this.addOne);
@@ -17,7 +17,7 @@ AccountsView = Backbone.ScreenView.extend({
         this.accounts.bind('all',     this.render);
 
         this.transactions = TransactionsList.get();
-        this.transactions.bind('add', this.reload)
+        this.transactions.bind('add', this.reload);
     },
 
     reload: function() {
@@ -40,11 +40,12 @@ AccountsView = Backbone.ScreenView.extend({
         };
     },
 
+    clear: function() {
+        this.$("#new-account-name").val('');
+    },
+
     create: function(e) {
-        accountNameInput = this.$("#new-account-name")
-        this.accounts.create(this.newAttributes(), { success: function() {
-            accountNameInput.val('');
-        }});
+        this.accounts.create(this.newAttributes(), { success: this.clear});
     },
 
     createOnEnter: function(e) {

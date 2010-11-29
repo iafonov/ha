@@ -4,7 +4,7 @@ TransactionsList = Backbone.Collection.extend({
     initialize: function() {
         this.model = Transaction;
     }
-})
+});
 
 TransactionsList.get = function() {
     if (_.isEmpty(TransactionsList.list)) {
@@ -13,4 +13,4 @@ TransactionsList.get = function() {
     }
 
     return TransactionsList.list;
-}
+};

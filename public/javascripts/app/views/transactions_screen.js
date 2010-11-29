@@ -8,7 +8,7 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     init: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'refreshForm', 'formatCurrency');
+        _(this).bindAll('addOne', 'addAll', 'refreshForm', 'formatCurrency');
 
         this.accounts = AccountsList.get();
         this.accounts.bind('all',     this.refreshForm);
@@ -60,10 +60,10 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     _fillAccountsSelect: function(select) {
-        select.html("")
+        select.html("");
         this.accounts.map(function(account) {
             caption = _.template("{{name}} ({{currency}})", account.attributes);
             $('<option/>').attr("value", account.get("id")).text(caption).appendTo(select);
-        })
+        });
     }
-})
+});

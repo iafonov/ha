@@ -9,7 +9,7 @@ AccountsList = Backbone.Collection.extend({
         this.invoke('removeElement');
         this.fetch();
     }
-})
+});
 
 AccountsList.get = function() {
     if (_.isEmpty(AccountsList.list)) {
@@ -18,4 +18,4 @@ AccountsList.get = function() {
     }
 
     return AccountsList.list;
-}
+};
