@@ -1,4 +1,6 @@
 Backbone.sync = function(method, model, success, error) {
+    console.log((_(model.url).isFunction() ? model.url() : model.url) + "/" + method);
+
     function runCallbackIfDefined(callback, parameter) {
         if (_(callback).isFunction()) {
             callback(parameter);

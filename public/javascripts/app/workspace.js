@@ -14,6 +14,8 @@ var Workspace = Backbone.Controller.extend({
         this.transactions = new TransactionsView();
 
         Backbone.history.start();
+
+        this.bank = new BankView();
     },
 
     root: function() {
