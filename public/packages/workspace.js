@@ -7644,6 +7644,31 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 	}
 
 })(jQuery);
+(function($) {
+    $.toggleFlash = function(message, options) {
+        if (_(message).isEmpty()) return;
+
+        if ($('#flash').size() == 0) {
+            $("body").prepend($("<div />").attr("id", "flash"));
+        }
+
+        $('#flash').toggleFlash(message);
+    };
+
+    $.fn.toggleFlash = function(message, options) {
+        if (_(message).isArray()) {
+            message = message.join($("<br />"));
+        }
+
+        this.html(message);
+        this.slideDown('slow', function() {
+            _.delay(function() {
+                flash = arguments[0];
+                flash.slideUp("slow");
+            }, 1000, $(this));
+        });
+    };
+})(jQuery);
 jQuery(function ($) {
     var csrf_token = $('meta[name=csrf-token]').attr('content'),
         csrf_param = $('meta[name=csrf-param]').attr('content');
@@ -8508,32 +8533,6 @@ jQuery(function ($) {
 
 })();
 
-(function($) {
-    $.toggleFlash = function(message, options) {
-        if (_.isEmpty(message)) return
-
-        if ( $('#flash').size() == 0 ) {
-            $("body").prepend('<div id="flash"></div>');
-        }
-
-        $('#flash').toggleFlash(message);
-    };
-
-    $.fn.toggleFlash = function(message, options) {
-        if (_.isArray(message)) {
-            message = message.join("<br />")
-        }
-
-        this.html(message)
-        this.slideDown('slow', function() {
-            _.delay(function() {
-                flash = arguments[0]
-                flash.slideUp("slow")
-            }, 1000, $(this))
-            
-        });
-	};
-})(jQuery);
 //     Backbone.js 0.3.1
 //     (c) 2010 Jeremy Ashkenas, DocumentCloud Inc.
 //     Backbone may be freely distributed under the MIT license.
@@ -9540,16 +9539,19 @@ Backbone.ScreenView = Backbone.View.extend({
 });
 
 Backbone.sync = function(method, model, success, error) {
-    console.log("sync url:" + (_.isFunction(model.url) ? model.url() : model.url) + " method " + method);
+    console.log((_(model.url).isFunction() ? model.url() : model.url) + "/" + method);
+
     function runCallbackIfDefined(callback, parameter) {
-        if (_.isFunction(callback)) callback(parameter);
+        if (_(callback).isFunction()) {
+            callback(parameter);
+        }
     }
 
     function extractModelErrors(errors) {
-        if (!_.isUndefined(errors)) {
-            return _.map(_.keys(errors), function(key) {
+        if (!_(errors).isUndefined()) {
+            return _(errors).keys().map(function(key) {
                 return key == "base" ? errors[key] : (key + " " + errors[key]);
-            })
+            });
         }
     }
 
@@ -9566,7 +9568,7 @@ Backbone.sync = function(method, model, success, error) {
         'update': 'PUT',
         'delete': 'DELETE',
         'read'  : 'GET'
-    }
+    };
 
     var sendModel = method === 'create' || method === 'update';
     var data = sendModel ? {model : JSON.stringify(model)} : {};
@@ -9574,23 +9576,23 @@ Backbone.sync = function(method, model, success, error) {
 
     startSpinner();
     $.ajax({
-        url       : _.isFunction(model.url) ? model.url() : model.url,
+        url       : _(model.url).isFunction() ? model.url() : model.url,
         type      : type,
         data      : data,
         dataType  : 'json',
         success   : function(response) {
             endSpinner();
-            if (_.isEmpty(response["errors"])) { //todo add 500 & 422 handling
-                runCallbackIfDefined(success, response)
+            if (_(response["errors"]).isEmpty()) { //todo add 500 & 422 handling
+                runCallbackIfDefined(success, response);
             } else {
-                $.toggleFlash(extractModelErrors(response.errors))
+                $.toggleFlash(extractModelErrors(response.errors));
 
-                runCallbackIfDefined(error, response)
+                runCallbackIfDefined(error, response);
             }
         },
         error     : function(response) {
             endSpinner();
-            runCallbackIfDefined(error, response)
+            runCallbackIfDefined(error, response);
         }
     });
 };
@@ -9603,7 +9605,7 @@ $(document).ready(function() {
 });
 Account = Backbone.Model.extend({
     initialize: function() {
-        _.bindAll(this, 'removeElement');
+        _(this).bindAll('removeElement');
     },
 
     removeElement: function() {
@@ -9613,7 +9615,7 @@ Account = Backbone.Model.extend({
     clear: function() {
         this.destroy({success: this.removeElement});
     }
-})
+});
 
 AccountsList = Backbone.Collection.extend({
     url: "/accounts",
@@ -9626,7 +9628,7 @@ AccountsList = Backbone.Collection.extend({
         this.invoke('removeElement');
         this.fetch();
     }
-})
+});
 
 AccountsList.get = function() {
     if (_.isEmpty(AccountsList.list)) {
@@ -9635,14 +9637,22 @@ AccountsList.get = function() {
     }
 
     return AccountsList.list;
-}
+};
+Bank = Backbone.Model.extend({
+    url: "/exchange_rates"
+});
+
 Transaction = Backbone.Model.extend({
     initialize: function() {
-        _.bindAll(this, 'removeElement');
+        _(this).bindAll('removeElement');
+    },
+
+    allAttributes: function() {
+        return _(this.attributes).extend(this.virtualAttributes());
     },
 
     virtualAttributes: function() {
-        return { accountFrom: this.accountFrom(), accountTo: this.accountTo(), transactionSumCents: this.transactionSumCents() }
+        return { accountFrom: this.accountFrom(), accountTo: this.accountTo(), transactionSumCents: this.transactionSumCents() };
     },
 
     removeElement: function() {
@@ -9668,7 +9678,7 @@ Transaction = Backbone.Model.extend({
     transactionCurrency: function() {
         return this.get("operations")[1].currency;
     }
-})
+});
 
 TransactionsList = Backbone.Collection.extend({
     url: "/transactions",
@@ -9676,7 +9686,7 @@ TransactionsList = Backbone.Collection.extend({
     initialize: function() {
         this.model = Transaction;
     }
-})
+});
 
 TransactionsList.get = function() {
     if (_.isEmpty(TransactionsList.list)) {
@@ -9685,7 +9695,7 @@ TransactionsList.get = function() {
     }
 
     return TransactionsList.list;
-}
+};
 AccountView = Backbone.View.extend({
     tagName:  "li",
     template: "accounts/account_item",
@@ -9699,13 +9709,13 @@ AccountView = Backbone.View.extend({
     },
 
     initialize: function() {
-        _.bindAll(this, 'render', 'close');
+        _(this).bindAll('render', 'close');
         this.model.bind('change', this.render);
         this.model.view = this;
     },
 
     render: function() {
-        $(this.el).html(JST[this.template](this.model.toJSON()))
+        $(this.el).html(JST[this.template](this.model.toJSON()));
         this.setContent();
         return this;
     },
@@ -9713,7 +9723,7 @@ AccountView = Backbone.View.extend({
     setContent: function() {
         this.$('.account-name-input').val(this.model.get("name"));
         this.$('.account-currency-input').val(this.model.get("currency"));
-        this.$('.account-balance').formatCurrency({region: this.model.get("currency"), cents: true})
+        this.$('.account-balance').formatCurrency({region: this.model.get("currency"), cents: true});
     },
 
     edit: function() {
@@ -9727,11 +9737,11 @@ AccountView = Backbone.View.extend({
     },
 
     saveAndClose: function() {
-        editElement = $(this.el)
+        editElement = $(this.el);
         this.model.save({
             name:     this.$('.account-name-input').val(),
             currency: this.$('.account-currency-input').val()
-        }, { success: function() { editElement.removeClass("editing"); }})
+        }, { success: this.close});
     },
 
     updateOnEnter: function(e) {
@@ -9747,15 +9757,15 @@ TransactionView = Backbone.View.extend({
     template: "transactions/transaction_item",
 
     initialize: function() {
-        _.bindAll(this, 'render');
+        _(this).bindAll('render');
+
         this.model.bind('change', this.render);
         this.model.view = this;
     },
 
     render: function() {
-        attrs = _.extend(this.model.attributes, this.model.virtualAttributes())
-        $(this.el).html(JST[this.template](attrs));
-        this.$('.transaction-amount').formatCurrency({region: this.model.transactionCurrency(), cents: true})
+        $(this.el).html(JST[this.template](this.model.allAttributes()));
+        this.$('.transaction-amount').formatCurrency({region: this.model.transactionCurrency(), cents: true});
         return this;
     }
 });
@@ -9770,7 +9780,7 @@ AccountsView = Backbone.ScreenView.extend({
     },
 
     init: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'render', 'reload');
+        _(this).bindAll('addOne', 'addAll', 'render', 'reload', 'clear');
 
         this.accounts = AccountsList.get();
         this.accounts.bind('add',     this.addOne);
@@ -9778,7 +9788,7 @@ AccountsView = Backbone.ScreenView.extend({
         this.accounts.bind('all',     this.render);
 
         this.transactions = TransactionsList.get();
-        this.transactions.bind('add', this.reload)
+        this.transactions.bind('add', this.reload);
     },
 
     reload: function() {
@@ -9801,11 +9811,12 @@ AccountsView = Backbone.ScreenView.extend({
         };
     },
 
+    clear: function() {
+        this.$("#new-account-name").val('');
+    },
+
     create: function(e) {
-        accountNameInput = this.$("#new-account-name")
-        this.accounts.create(this.newAttributes(), { success: function() {
-            accountNameInput.val('');
-        }});
+        this.accounts.create(this.newAttributes(), { success: this.clear});
     },
 
     createOnEnter: function(e) {
@@ -9813,11 +9824,38 @@ AccountsView = Backbone.ScreenView.extend({
         this.create();
     }
 });
+BankView = Backbone.View.extend({
+    el:  "#rates",
+    template: "bank/bank",
+
+    events: {
+        "click #rates-line": "refresh"
+    },
+
+    initialize: function() {
+        _(this).bindAll('render');
+
+        this.model = new Bank();
+        this.model.bind('change', this.render);
+
+        this.refresh();
+    },
+
+    refresh: function() {
+        this.model.fetch();
+    },
+
+    render: function() {
+        $(this.el).html(JST[this.template](this.model.toJSON()));
+        this.$(".currency-rate").formatCurrency({region: "UAH", cents: false});
+        return this;
+    }
+});
 HomeView = Backbone.ScreenView.extend({
     el: "#home",
     rootElement: "#active-window",
     template: "home/home"
-})
+});
 TransactionsView = Backbone.ScreenView.extend({
     el: "#transactions",
     rootElement: "#active-window",
@@ -9828,7 +9866,7 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     init: function() {
-        _.bindAll(this, 'addOne', 'addAll', 'refreshForm', 'formatCurrency');
+        _(this).bindAll('addOne', 'addAll', 'refreshForm', 'formatCurrency');
 
         this.accounts = AccountsList.get();
         this.accounts.bind('all',     this.refreshForm);
@@ -9880,13 +9918,13 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     _fillAccountsSelect: function(select) {
-        select.html("")
+        select.html("");
         this.accounts.map(function(account) {
             caption = _.template("{{name}} ({{currency}})", account.attributes);
             $('<option/>').attr("value", account.get("id")).text(caption).appendTo(select);
-        })
+        });
     }
-})
+});
 var Workspace = Backbone.Controller.extend({
     routes: {
         ""   : "root",
@@ -9903,6 +9941,8 @@ var Workspace = Backbone.Controller.extend({
         this.transactions = new TransactionsView();
 
         Backbone.history.start();
+
+        this.bank = new BankView();
     },
 
     root: function() {
@@ -9925,6 +9965,7 @@ window.JST = window.JST || {};
 
 window.JST['accounts/account_item'] = _.template('<div class="account">  <div class="item">    <span class="account-name">{{name}}</span>    <span class="action-link history">history</span>    <span class="destroy">X</span>    <span class="account-balance">{{balance_in_cents}}</span>  </div>  <div class="edit">    <input class="account-name-input" id="account-name-input" name="account-name-input" type="text" />    <select class="account-currency-input" id="account-currency-input" name="account-currency-input">      <option value="USD">USD</option>      <option value="UAH">UAH</option>    </select>    <span class="action-link save">Save</span>    <span class="action-link cancel">Cancel</span>  </div></div>');
 window.JST['accounts/accounts'] = _.template('<div class="window" id="accounts" style="display: none;">  <h1>Accounts</h1>  <ul id="accounts-list"></ul>  <fieldset id="create-account">    <legend>Create new account</legend>    <div>      <label for="new-account-name">Name:</label>      <input class="new" id="new-account-name" name="new-account-name" placeholder="New account name" type="text" />    </div>    <div>      <label for="new-account-name">Currency:</label>      <select id="new-account-currency" name="new-account-currency">        <option value="USD">USD</option>        <option value="UAH">UAH</option>      </select>    </div>    <div class="submit-line">      <input id="create-new-account" name="commit" type="submit" value="Add" />    </div>  </fieldset></div>');
+window.JST['bank/bank'] = _.template('<div id="rates-line">  USD<span class="currency-rate">{{USD_TO_UAH}}</span>/<span class="currency-rate">{{1.0 / UAH_TO_USD}}</span><div id="refresh-rates"></div></div>');
 window.JST['home/home'] = _.template('<div class="window" id="home" style="display: none;">  <h1>Home</h1>  <ul id="menu">    <li>      <a href="#accounts">Accounts</a>    </li>    <li>      <a href="#transactions">Transactions</a>    </li>  </ul></div>');
 window.JST['transactions/transaction_item'] = _.template('<div class="transaction">  <div class="item">    <span class="transaction-comment"><span class="transaction-amount">{{transactionSumCents}}</span> from {{accountFrom.name}} to {{accountTo.name}} ({{comment}})</span>  </div></div>');
 window.JST['transactions/transactions'] = _.template('<div class="window" id="transactions" style="display: none;">  <h1>Transactions</h1>  <ul id="transactions-list"></ul>  <fieldset id="create-transaction">    <legend>Add new transaction</legend>    <div>      <label for="new-transaction-from">From:</label>      <select id="new-transaction-from" name="new-transaction-from">        <option>TEST</option>      </select>    </div>    <div>      <label for="new-transaction-to">To:</label>      <select id="new-transaction-to" name="new-transaction-to">      </select>    </div>    <div>      <label for="new-transaction-amount">Amount:</label>      <input class="new" id="new-transaction-amount" name="new-transaction-amount" placeholder="0" type="text" />    </div>    <div>      <label for="new-transaction-name">Currency:</label>      <select id="new-transaction-currency" name="new-transaction-currency">        <option value="USD">USD</option>        <option value="UAH">UAH</option>      </select>    </div>    <div>      <label for="new-transaction-comment">Comment:</label>      <input class="new" id="new-transaction-comment" name="new-transaction-comment" placeholder="Comment" type="text" />    </div>    <div class="submit-line">      <input id="create-new-transaction" name="commit" type="submit" value="Add" />    </div>  </fieldset></div>');

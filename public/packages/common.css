@@ -67,8 +67,9 @@ body h1 {
   text-align: center;
 }
 
-body .window {
-  width: 700px;
+body {
+  width: 980px;
+  padding: 10px;
   margin: 0 auto 40px auto;
 }
 
@@ -79,8 +80,23 @@ body .window {
   top: 0;
   height: 50px;
   width: 50px;
-  background-image:url(../images/spinner.gif?1288858369);
+  background-image: url(../images/spinner.gif?1288858369);
   background-repeat: no-repeat;
+}
+
+#rates {
+  float:right;
+  cursor: hand;
+  cursor: pointer;
+}
+
+#refresh-rates {
+  background-image: url(../images/refresh.gif?1291040246);
+  height: 16px;
+  width: 15px;
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  float: right;
 }
 
 li {
