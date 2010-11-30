@@ -11,7 +11,10 @@ class Transaction < ActiveRecord::Base
 private
 
   def transaction_sum_must_be_zero
-    if operations.reduce(Money.new(0)) {|sum, operation| sum + operation.amount} != 0
+    operations.each do |o|
+      p o.amount.exchange_to("USD").to_s
+    end
+    if operations.reduce(Money.new(0)) {|sum, operation| sum + operation.amount.exchange_to("USD") } != 0
       errors.add(:base, "Transaction sum must be zero")
     end
   end

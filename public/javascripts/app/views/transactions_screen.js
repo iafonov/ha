@@ -45,16 +45,26 @@ TransactionsView = Backbone.ScreenView.extend({
     },
 
     newAttributes: function() {
+        var accountFrom = this.accounts.get(this.$("#new-transaction-from").val());
+        var accountTo = this.accounts.get(this.$("#new-transaction-to").val());
+
+        var currency = this.$("#new-transaction-currency").val();
+        var currencyFrom = accountFrom.get("currency");
+        var currencyTo = accountTo.get("currency");
+
+        var centsFrom = Bank.get().exchange(-this.$("#new-transaction-amount").asCents(), currency, currencyFrom);
+        var centsTo   = Bank.get().exchange( this.$("#new-transaction-amount").asCents(), currency, currencyTo);
+
         return {
             comment:  this.$("#new-transaction-comment").val(),
             operations: [{
-                account_id: this.$("#new-transaction-from").val(),
-                currency:   this.$("#new-transaction-currency").val(),
-                cents:      (-this.$("#new-transaction-amount").asCents())
+                account_id: accountFrom.id,
+                currency:   currencyFrom,
+                cents:      centsFrom
             }, {
-                account_id: this.$("#new-transaction-to").val(),
-                currency:   this.$("#new-transaction-currency").val(),
-                cents:      this.$("#new-transaction-amount").asCents()
+                account_id: accountTo.id,
+                currency:   currencyTo,
+                cents:      centsTo
             }]
         };
     },

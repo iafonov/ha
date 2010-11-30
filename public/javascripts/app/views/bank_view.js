@@ -9,10 +9,8 @@ BankView = Backbone.View.extend({
     initialize: function() {
         _(this).bindAll('render');
 
-        this.model = new Bank();
+        this.model = Bank.get();
         this.model.bind('change', this.render);
-
-        this.refresh();
     },
 
     refresh: function() {
